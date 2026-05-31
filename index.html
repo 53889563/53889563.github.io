@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScriptsParadise - Premium Roblox Scripts & AutoFarms</title>
     <meta name="description" content="Welcome to ScriptsParadise. The ultimate database for undetected Roblox scripts, hacks, and autofarms. Daily updates.">
-    <meta name="keywords" content="roblox scripts, roblox hacks, roblox autofarm, blox fruits script, roblox exploit">
-    
-    <!-- PRIVATE TRACKING PIXEL -->
     <script data-goatcounter="https://scriptsparadise.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
         :root { --bg: #0a0a12; --card: #141420; --accent: #00ffff; --accent2: #ff00ff; --text: #ffffff; }
@@ -32,18 +28,14 @@
     </style>
 </head>
 <body>
-
 <header>
     <h1>ScriptsParadise</h1>
     <p>The Ultimate Database for Undetected Roblox Scripts</p>
 </header>
-
 <div class="search-wrapper">
     <input type="text" id="searchBar" placeholder="🔍 Search games (e.g., Blox Fruits, Da Hood)...">
 </div>
-
 <div class="grid" id="scriptGrid"></div>
-
 <script>
     let scriptsData = [];
     fetch('database.json')
@@ -52,7 +44,6 @@
             scriptsData = data.reverse(); 
             displayScripts(scriptsData);
         });
-
     function displayScripts(scripts) {
         const grid = document.getElementById('scriptGrid');
         grid.innerHTML = '';
@@ -70,7 +61,6 @@
             grid.appendChild(card);
         });
     }
-
     document.getElementById('searchBar').addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase();
         const filtered = scriptsData.filter(s => 

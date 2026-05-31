@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScriptsParadise - Premium Roblox Scripts & AutoFarms</title>
+    <meta name="description" content="Welcome to ScriptsParadise. The ultimate database for undetected Roblox scripts, hacks, and autofarms. Daily updates.">
+    <meta name="keywords" content="roblox scripts, roblox hacks, roblox autofarm, blox fruits script, roblox exploit">
+    
+    <!-- PRIVATE TRACKING PIXEL -->
+    <script data-goatcounter="https://scriptsparadise.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        :root { --bg: #0a0a12; --card: #141420; --accent: #00ffff; --accent2: #ff00ff; --text: #ffffff; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; overflow-x: hidden; }
+        header { background: linear-gradient(180deg, #1a1025 0%, var(--bg) 100%); padding: 80px 20px; text-align: center; border-bottom: 2px solid var(--accent); position: relative; }
+        header h1 { margin: 0; font-size: 4em; font-weight: 900; background: -webkit-linear-gradient(45deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; letter-spacing: 4px; text-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+        header p { color: #a0a0b0; font-size: 1.2em; margin-top: 10px; }
+        .search-wrapper { text-align: center; margin-top: -35px; position: relative; z-index: 10; }
+        #searchBar { width: 90%; max-width: 600px; padding: 20px 30px; border-radius: 50px; border: 2px solid #2a2a3a; background: var(--card); color: white; font-size: 18px; outline: none; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-family: 'Montserrat', sans-serif; }
+        #searchBar:focus { border-color: var(--accent); box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; padding: 50px 20px; max-width: 1300px; margin: auto; }
+        .card { background: var(--card); border-radius: 16px; overflow: hidden; border: 1px solid #222; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid #222; }
+        .card-content { padding: 25px; }
+        .card-title { font-size: 1.3em; font-weight: 700; margin: 0 0 10px 0; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-desc { font-size: 0.9em; color: #888; margin-bottom: 25px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 40px; }
+        .btn { display: block; text-align: center; background: linear-gradient(90deg, var(--accent), #009999); color: black; text-decoration: none; padding: 15px; border-radius: 10px; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
+        .btn:hover { background: linear-gradient(90deg, var(--accent2), var(--accent)); color: white; box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>ScriptsParadise</h1>
+    <p>The Ultimate Database for Undetected Roblox Scripts</p>
+</header>
+
+<div class="search-wrapper">
+    <input type="text" id="searchBar" placeholder="🔍 Search games (e.g., Blox Fruits, Da Hood)...">
+</div>
+
+<div class="grid" id="scriptGrid"></div>
+
+<script>
+    let scriptsData = [];
+    fetch('database.json')
+        .then(res => res.json())
+        .then(data => {
+            scriptsData = data.reverse(); 
+            displayScripts(scriptsData);
+        });
+
+    function displayScripts(scripts) {
+        const grid = document.getElementById('scriptGrid');
+        grid.innerHTML = '';
+        scripts.forEach(script => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <img src="${script.image}" alt="${script.game_name} Script" loading="lazy">
+                <div class="card-content">
+                    <h2 class="card-title">${script.game_name}</h2>
+                    <p class="card-desc">${script.features}</p>
+                    <a href="scripts/${script.slug}.html" class="btn">Get Script</a>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    document.getElementById('searchBar').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const filtered = scriptsData.filter(s => 
+            s.game_name.toLowerCase().includes(query) || s.features.toLowerCase().includes(query)
+        );
+        displayScripts(filtered);
+    });
+</script>
+</body>
+</html>
